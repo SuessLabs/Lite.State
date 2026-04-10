@@ -8,8 +8,6 @@ on:
   pull_request:
     branches: [ master, develop ]
 
-
-
 env:
   # Update to desired major.minor. This is the base version family.
   BASE_VERSION: "2.1"

@@ -4,6 +4,7 @@
     <Project Path="Sample.Mk4/Sample.Mk4.csproj" Id="f7481ec8-d3be-4acd-9eae-a4723c09e245" />
   </Folder>
   <Folder Name="/Solution Items/">
+    <File Path="../.github/workflows/build-github.yml" />
     <File Path="../build.ps1" />
     <File Path="../readme-nuget.md" />
     <File Path="../readme.md" />
