@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Sample.Basics.Services;
 
 [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1649:File name should match first type name", Justification = "Allowed for testing.")]
-public interface IMessageService
+public interface ICounterService
 {
   /// <summary
   /// Gets or sets a counter.
@@ -28,7 +28,7 @@ public interface IMessageService
   void AddMessage(string message);
 }
 
-public class MessageService : IMessageService
+public class CounterService : ICounterService
 {
   /// <inheritdoc/>
   public int Counter1 { get; set; }

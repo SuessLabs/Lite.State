@@ -31,6 +31,8 @@ The following table is an output of local [benchmark results](https://github.com
 | **Lite.StateMachine** | v2.3.0 | **10.17 us** | **8.02 KB** |
 | Stateless | v5.20.1 | 10.72 us | 10.62 KB |
 
+_Lite.StateMachine is the fastest and lowest allocation_
+
 ## Usage
 
 Create a _state machine_ by defining the states, transitions, and shared context.
