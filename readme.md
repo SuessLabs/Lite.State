@@ -28,6 +28,9 @@ You can define the state machine using either the fluent design pattern or stand
 
 ### Basic State
 
+![](docs/images/nuget-state-machine-icon-isometric.png)  
+The basic state exapmle transitions from `State1 -> State2 -> State3`.
+
 ```cs
 // That's it! Just create the state machine, register states, and run it.
 var machine = await new StateMachine<StateId>()
@@ -57,7 +60,7 @@ public class BasicState1() : BaseState
 {
   public async Task OnEnter(Context<BasicStateId> context)
   {
-    await Task.Yield(); // Some async work here...
+    await Task.Yield(); // Your async work here...
     context.NextState(Result.Ok);
   }
 }
@@ -66,8 +69,9 @@ public class BasicState2() : BaseState
 {
   public Task OnEnter(Context<StateId> context)
   {
+    // Notice, we did not async/await this method
     context.NextState(Result.Ok);
-    return Task.CompletedTask; // Notice, we did not async/await this method
+    return Task.CompletedTask;
   }
 }
 
@@ -90,6 +94,8 @@ var uml = machine.ExportUml(includeSubmachines: true);
 ![Sample Composite State Image](https://raw.githubusercontent.com/SuessLabs/Lite.StateMachine/develop/docs/SampleGraphviz-1080.png)
 
 ### Composite States
+
+The following uses the fluent design pattern style, stacking the `.RegisterXXX(...)` methonds ontop of each other with the `RunAsync(...)` method occurring at the end.
 
 ```cs
 using Lite.StateMachine;
