@@ -1,0 +1,22 @@
+<Solution>
+  <Folder Name="/Samples/">
+    <Project Path="samples/Sample.Basics/Sample.Basics.csproj" Id="88e1e0a9-34b8-4610-a2f4-bfb36e0d1b43" />
+    <Project Path="samples/Sample.Mk4/Sample.Mk4.csproj" Id="f7481ec8-d3be-4acd-9eae-a4723c09e245" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".github/workflows/build-github.yml" />
+    <File Path="build.ps1" />
+    <File Path="readme-nuget.md" />
+    <File Path="readme.md" />
+    <File Path=".editorconfig" />
+    <File Path="codemaid.config" />
+    <File Path="Concept-Designs.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="source/Lite.Statemachine.BenchmarkTests/Lite.StateMachine.BenchmarkTests.csproj" Id="de19a850-9787-485a-b4d2-4620ca204969" />
+    <Project Path="source/Lite.StateMachine.Tests/Lite.StateMachine.Tests.csproj" Id="9644caac-1ac7-49b2-a502-896ca82f7b74" />
+  </Folder>
+  <Project Path="source/Lite.StateMachine/Lite.StateMachine.csproj" />
+</Solution>
