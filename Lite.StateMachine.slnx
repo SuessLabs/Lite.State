@@ -1,7 +1,8 @@
 <Solution>
   <Folder Name="/Samples/">
-    <Project Path="samples/Sample.Basics/Sample.Basics.csproj" Id="88e1e0a9-34b8-4610-a2f4-bfb36e0d1b43" />
-    <Project Path="samples/Sample.Mk4/Sample.Mk4.csproj" Id="f7481ec8-d3be-4acd-9eae-a4723c09e245" />
+    <Project Path="samples/Sample01.BasicStates/Sample01.BasicStates.csproj" Id="07016e87-d49b-4ece-9d24-e062eaa02dc4" />
+    <Project Path="samples/Sample02.PassingParams/Sample02.PassingParams.csproj" Id="88e1e0a9-34b8-4610-a2f4-bfb36e0d1b43" />
+    <Project Path="samples/Sample03.DependencyInjection/Sample03.DependencyInjection.csproj" Id="f7481ec8-d3be-4acd-9eae-a4723c09e245" />
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".github/workflows/build-github.yml" />

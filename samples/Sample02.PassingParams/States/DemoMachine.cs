@@ -3,9 +3,9 @@
 
 using System.Threading.Tasks;
 using Lite.StateMachine;
-using Sample.Basics.Models;
+using Sample02.PassingParams.Models;
 
-namespace Sample.Basics.States;
+namespace Sample02.PassingParams.States;
 
 public enum BasicStateId
 {

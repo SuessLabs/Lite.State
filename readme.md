@@ -20,6 +20,19 @@ The Lite State Machine is designed for vertical scaling. Meaning, it can be used
 |-|-|-|
 | Lite.StateMachine | [![Lite.StateMachine NuGet Badge](https://img.shields.io/nuget/v/Lite.StateMachine)](https://www.nuget.org/packages/Lite.StateMachine/) | [![Lite.StateMachine NuGet Badge](https://img.shields.io/nuget/vpre/Lite.StateMachine)](https://www.nuget.org/packages/Lite.StateMachine/)
 
+## Benchmarks
+
+Not only is [Lite.StateMachine](https://github.com/SuessLabs/Lite.StateMachine) smaller, easier to read, manage, and maintain, _**it faster too**_!
+
+The following table is an output of local [benchmark results](https://github.com/DamianSuess/Lite.StateMachine.Benchmarks) using state-transition operations across multiple states:
+
+| Method | Version | Mean | Allocated |
+|-|-|-|-|
+| **Lite.StateMachine** | v2.3.0 | **10.17 us** | **8.02 KB** |
+| Stateless | v5.20.1 | 10.72 us | 10.62 KB |
+
+_Lite.StateMachine is the fastest and lowest allocation_
+
 ## Usage
 
 Create a _state machine_ by defining the states, transitions, and shared context.

@@ -3,14 +3,14 @@
 
 using System.Collections.Generic;
 
-namespace Sample.Basics.Services;
+namespace Sample03.DependencyInjection;
 
 [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1649:File name should match first type name", Justification = "Allowed for testing.")]
-public interface IMessageService
+public interface ICounterService
 {
   /// <summary
   /// Gets or sets a counter.
-  /// <see cref="DiStateBase{TStateClass, TStateId}"/> uses it as an automatic state transition counter.
+  /// <see cref="StateDiBase{TStateClass, TStateId}"/> uses it as an automatic state transition counter.
   /// </summary>
   int Counter1 { get; set; }
 
@@ -20,6 +20,9 @@ public interface IMessageService
   /// <summary>Gets or sets the user's custom counter.</summary>
   int Counter3 { get; set; }
 
+  /// <summary>Gets or sets the user's custom counter.</summary>
+  int Counter4 { get; set; }
+
   /// <summary>Gets a list of user's custom messages.</summary>
   List<string> Messages { get; }
 
@@ -28,7 +31,7 @@ public interface IMessageService
   void AddMessage(string message);
 }
 
-public class MessageService : IMessageService
+public class CounterService : ICounterService
 {
   /// <inheritdoc/>
   public int Counter1 { get; set; }
@@ -38,6 +41,9 @@ public class MessageService : IMessageService
 
   /// <inheritdoc/>
   public int Counter3 { get; set; }
+
+  /// <inheritdoc/>
+  public int Counter4 { get; set; }
 
   /// <inheritdoc/>
   public List<string> Messages { get; } = [];
