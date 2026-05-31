@@ -8,11 +8,11 @@ if (Test-Path -Path "output\")
 }
 
 # Clean both debug and release
-dotnet clean source/Lite.StateMachine.slnx
-dotnet clean source/Lite.StateMachine.slnx --configuration Release
+dotnet clean Lite.StateMachine.slnx
+dotnet clean Lite.StateMachine.slnx --configuration Release
 
 # Build package for release
-dotnet build source/Lite.StateMachine.slnx --configuration Release
+dotnet build Lite.StateMachine.slnx --configuration Release
 
 # Publish
 Write-Output "Cleaning publish folder.."

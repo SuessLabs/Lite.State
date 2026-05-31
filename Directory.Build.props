@@ -25,9 +25,9 @@
 
   <ItemGroup>
     <!-- Detect stylecop analyzers-->
-    <AdditionalFiles Include="../stylecop.json" />
+    <AdditionalFiles Include="../../stylecop.json" />
     <!-- https://github.com/dotnet/roslyn/blob/main/src/RoslynAnalyzers/Microsoft.CodeAnalysis.BannedApiAnalyzers/BannedApiAnalyzers.Help.md -->
-    <None Remove="../BannedSymbols.txt" />
-    <AdditionalFiles Include="../BannedSymbols.txt" />
+    <None Remove="../../BannedSymbols.txt" />
+    <AdditionalFiles Include="../../BannedSymbols.txt" />
   </ItemGroup>
 </Project>
