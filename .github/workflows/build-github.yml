@@ -11,7 +11,7 @@ on:
 env:
   # Update to desired major.minor. This is the base version family.
   BASE_VERSION: "2.1"
-  PATH_SLNX: "source\\Lite.StateMachine.slnx"
+  PATH_SLNX: "Lite.StateMachine.slnx"
   PATH_LIB: "source\\Lite.StateMachine\\Lite.StateMachine.csproj"
   PATH_ARTIFACTS: ${{github.workspace}}\artifacts
 
