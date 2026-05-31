@@ -5,7 +5,7 @@ using System;
 using System.Threading.Tasks;
 using Lite.StateMachine;
 
-namespace Sample01.BasicStates.Samples;
+namespace Sample01.BasicStates.SampleBasic;
 
 /// <summary>State definitions.</summary>
 public enum BasicStateId
