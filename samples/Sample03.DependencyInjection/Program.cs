@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Lite.StateMachine;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Sample03.DependencyInjection.MsDI;
 
 namespace Sample03.DependencyInjection;
 

@@ -2,6 +2,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.Generic;
+using Sample03.DependencyInjection.MsDI;
 
 namespace Sample03.DependencyInjection;
 
