@@ -14,10 +14,10 @@ internal class Program
 {
   private static async Task Main()
   {
-    await TestFlatStatesAsync();
+    await TestMicrosoftDependencyInjectionAsync();
   }
 
-  private static async Task TestFlatStatesAsync()
+  private static async Task TestMicrosoftDependencyInjectionAsync()
   {
     // Assemble with Dependency Injection
     var services = new ServiceCollection()
@@ -39,18 +39,19 @@ internal class Program
 
     var result = await machine.RunAsync(BasicStateId.State1);
 
-    ////Assert.IsNotNull(result);
-    ////AssertMachineNotNull(machine);
+    Console.WriteLine("\n\nPost Execution Validations:");
+    Console.WriteLine("---------------------------");
 
     var msgService = services.GetRequiredService<ICounterService>();
-    ////Assert.AreEqual(9, msgService.Counter1, "Message service should have 9 from the 3 states.");
+    Console.WriteLine($"* Message service Counter1: {msgService.Counter1} (expected 9)");
 
     // Ensure all states are registered
     var enums = Enum.GetValues<BasicStateId>().Cast<BasicStateId>();
-    ////Assert.AreEqual(enums.Count(), machine.States.Count());
-    ////Assert.IsTrue(enums.All(k => machine.States.Contains(k)));
+    Console.WriteLine($"* State Machine Counts: {machine.States.Count()}. State Enum Count: {enums.Count()}");
+    Console.WriteLine($"* All states registered: {enums.All(k => machine.States.Contains(k))}");
 
     // Ensure they're registered in order
-    ////Assert.IsTrue(enums.SequenceEqual(machine.States), "States should be registered for execution in the same order as the defined enums, StateId 1 => 2 => 3.");
+    // Validates that States are registered for execution in the same order as the defined enums. StateId 1 => 2 => 3.
+    Console.WriteLine($"* State registered in order: {enums.SequenceEqual(machine.States)}");
   }
 }

@@ -4,15 +4,16 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Sample02.PassingParams.States;
 
-namespace Sample.Basics;
+namespace Sample02.PassingParams;
 
 internal class Program
 {
   private static async Task Main(string[] args)
   {
     Console.WriteLine("Sample state machine with LiteState!");
-    await States.DemoMachine.RunAsync();
+    await DemoMachine.RunAsync();
 
     // Poor man's timestamp
     Console.WriteLine("\nRunning again, showing simple benchmarks...");
@@ -20,7 +21,7 @@ internal class Program
     {
       var sw = Stopwatch.StartNew();
 
-      await States.DemoMachine.RunAsync(logOutput: false);
+      await DemoMachine.RunAsync(logOutput: false);
 
       sw.Stop();
       Console.WriteLine($"Took {sw.ElapsedMilliseconds} ms ({sw.ElapsedTicks} ticks)");

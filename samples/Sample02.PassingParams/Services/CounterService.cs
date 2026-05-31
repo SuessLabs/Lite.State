@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace Sample.Basics.Services;
+namespace Sample02.PassingParams.Services;
 
 [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1649:File name should match first type name", Justification = "Allowed for testing.")]
 public interface ICounterService

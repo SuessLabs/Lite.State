@@ -5,7 +5,7 @@ using System;
 using System.Threading.Tasks;
 using Lite.StateMachine;
 
-namespace Sample.Basics.States;
+namespace Sample02.PassingParams.States;
 
 public class StateBase<TStateClass, TStateId> : IState<TStateId>
   where TStateId : struct, Enum
