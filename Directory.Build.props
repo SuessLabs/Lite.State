@@ -4,6 +4,8 @@
     <LangVersion>latest</LangVersion>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 
+    <AssemblyVersion>2.3.1</AssemblyVersion>
+
     <BaseOutputPath>../../output/$(MSBuildProjectName)</BaseOutputPath>
     <Deterministic>true</Deterministic>
     <Nullable>enable</Nullable>
