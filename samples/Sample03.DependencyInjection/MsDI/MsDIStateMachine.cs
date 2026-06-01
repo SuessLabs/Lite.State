@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Lite.StateMachine;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Sample03.DependencyInjection.MsDI;
 
@@ -23,12 +24,16 @@ public static class MsDIStateMachine
     State3,
   }
 
-  public static async Task RunMsDiAsync()
+  public static async Task RunAsync()
   {
     // Assemble with Dependency Injection
     var services = new ServiceCollection()
       //// Register Services
-      .AddLogging(b => b.AddSimpleConsole())
+      .AddLogging(b => b.AddSimpleConsole(options =>
+      {
+        options.SingleLine = true;
+        options.IncludeScopes = true;
+      }))
       .AddSingleton<ICounterService, CounterService>()
       //// Register States
       .AddTransient<State1>()
@@ -45,11 +50,11 @@ public static class MsDIStateMachine
 
     var result = await machine.RunAsync(BasicStateId.State1);
 
-    Console.WriteLine("\n\nPost Execution Validations:");
+    Console.WriteLine("Post Execution Validations:");
     Console.WriteLine("---------------------------");
 
-    var msgService = services.GetRequiredService<ICounterService>();
-    Console.WriteLine($"* Message service Counter1: {msgService.Counter1} (expected 9)");
+    var counterService = services.GetRequiredService<ICounterService>();
+    Console.WriteLine($"* Counter service Counter1: {counterService.Counter1} (expected 9)");
 
     // Ensure all states are registered
     var enums = Enum.GetValues<BasicStateId>().Cast<BasicStateId>();
