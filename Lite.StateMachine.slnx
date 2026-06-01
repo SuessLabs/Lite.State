@@ -3,6 +3,10 @@
     <Project Path="samples/Sample01.BasicStates/Sample01.BasicStates.csproj" Id="07016e87-d49b-4ece-9d24-e062eaa02dc4" />
     <Project Path="samples/Sample02.PassingParams/Sample02.PassingParams.csproj" Id="88e1e0a9-34b8-4610-a2f4-bfb36e0d1b43" />
     <Project Path="samples/Sample03.DependencyInjection/Sample03.DependencyInjection.csproj" Id="f7481ec8-d3be-4acd-9eae-a4723c09e245" />
+    <Project Path="samples/Sample04.ResultTransitions/Sample04.ResultTransitions.csproj" Id="c1a4fb9a-6b1b-43e7-aeb1-2c07024b15d5" />
+    <Project Path="samples/Sample05.CommandStates/Sample05.CommandStates.csproj" Id="cd6b33b8-ac4a-4ec7-a3a8-5cdf14c03847" />
+    <Project Path="samples/Sample06.PassingEvents/Sample06.PassingEvents.csproj" Id="01a1903a-9da0-4cd2-a811-356822569e03" />
+    <Project Path="samples/Sample10.UsingEventIPC/Sample10.UsingEventIPC.csproj" Id="f89325bb-17ff-4db9-9647-92bad4e2f974" />
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".github/workflows/build-github.yml" />

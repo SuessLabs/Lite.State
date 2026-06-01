@@ -2,6 +2,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.Generic;
+using Sample03.DependencyInjection.MsDI;
 
 namespace Sample03.DependencyInjection;
 
@@ -10,7 +11,7 @@ public interface ICounterService
 {
   /// <summary
   /// Gets or sets a counter.
-  /// <see cref="StateDiBase{TStateClass, TStateId}"/> uses it as an automatic state transition counter.
+  /// <see cref="BaseDiState{TStateClass, TStateId}"/> uses it as an automatic state transition counter.
   /// </summary>
   int Counter1 { get; set; }
 
