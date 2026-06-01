@@ -33,6 +33,47 @@ The following table is an output of local [benchmark results](https://github.com
 
 _Lite.StateMachine is the fastest and lowest allocation_
 
+
+## Features
+
+_Thread safe and most customizations can be set on-the-fly!_
+
+* AOT Friendly - Ahead-of-Time compilation, _No Reflection, no Linq, etc._
+* Passing parameters between state transitions via `Context`
+* Dependency Injection (DI) friendly
+* Asynchronous states
+* Types of States:
+  * **Basic Linear State** (`BaseState`)
+  * **Composite** States (`CompositeState`)
+    * Hieratical / Nested Sub-states
+    * Similar to Actor/Director model
+  * **Command States** with optional Timeout (`CommandState`)
+    * Uses internal Event Aggregator for sending/receiving messages
+    * Allows users to hook to external messaging services (TCP/IP, RabbitMQ, DBus, etc.)
+* State Transition Triggers:
+  * Transitions are triggered by setting the context's next state result:
+  * On Success: `context.NextState(Result.Ok);`
+  * On Error: `context.NextState(Result.Error);`
+  * On Failure: : `context.NextState(Result.Failure);`
+* State Handlers:
+  * `OnEntering` - Initial entry of the state
+  * `OnEnter` - Resting (idle) place for state.
+  * `OnExit` - (Optional) Thrown during transitioning. Used for housekeeping or exiting activity.
+  * `OnMessage` (Optional)
+    * Must ensure that code has exited `OnMessage` before going to the next state.
+  * `OnTimeout` - (Optional) Thrown when the state is auto-transitioning due to timeout exceeded
+* Transition has knowledge of the `PreviousState`, `CurrentStateId`, and `NextState`
+* Shared **Context**:
+  * `Parameters` - _For passing data between states._
+  * `Errors` - _For passing error information between states._
+  * `CurrentStateId`
+  * `NextStates`
+  * `EventAggregator`
+  * `LastChildResult`, `LastChildStateId` _(for composite states)_
+* Customizable (on-the-fly):
+  * State Timeout (_per state or default for all states_)
+  * Overridable Next States! `OnSuccess`, `OnError`, or `OnFailure`
+
 ## Usage
 
 Create a _state machine_ by defining the states, transitions, and shared context.
@@ -201,31 +242,5 @@ public class Composite_State3() : BaseState
   }
 }
 ```
-
-## Features
-
-* AOT Friendly - _No Reflection, no Linq, etc._
-* Passing parameters between state transitions via `Context`
-* Types of States
-  * **Basic Linear State** (`BaseState`)
-  * **Composite** States (`CompositeState`)
-    * Hieratical / Nested Sub-states
-    * Similar to Actor/Director model
-  * **Command States** with optional Timeout (`CommandState`)
-    * Uses internal Event Aggregator for sending/receiving messages
-    * Allows users to hook to external messaging services (TCP/IP, RabbitMQ, DBus, etc.)
-* State Transition Triggers
-  * Transitions are triggered by setting the context's next state result:
-  * On Success: `context.NextState(Result.Ok);`
-  * On Error: `context.NextState(Result.Error);`
-  * On Failure: : `context.NextState(Result.Failure);`
-* State Handlers
-  * `OnEntering` - Initial entry of the state
-  * `OnEnter` - Resting (idle) place for state.
-  * `OnExit` - (Optional) Thrown during transitioning. Used for housekeeping or exiting activity.
-  * `OnMessage` (Optional)
-    * Must ensure that code has exited `OnMessage` before going to the next state.
-  * `OnTimeout` - (Optional) Thrown when the state is auto-transitioning due to timeout exceeded
-* Transition has knowledge of the `PreviousState` and `NextState`
 
 ## References
