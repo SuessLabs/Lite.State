@@ -1,0 +1,68 @@
+// Copyright Xeno Innovations, Inc. 2025
+// See the LICENSE file in the project root for more information.
+
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using Lite.StateMachine;
+using Microsoft.Extensions.Logging;
+
+namespace Sample03.DependencyInjection.MsDI;
+
+#pragma warning disable SA1124 // Do not use regions
+
+public class BaseDiState<TStateClass, TStateId>(ICounterService msg, ILogger<TStateClass> logger)
+  : IState<TStateId>
+  where TStateId : struct, Enum
+{
+  private readonly ILogger<TStateClass> _logger = logger;
+  private readonly ICounterService _msgService = msg;
+
+  /// <summary>Gets or sets a value indicating whether output transitions for debugging tests.</summary>
+  public bool HasExtraLogging { get; set; } = false;
+
+  public ILogger<TStateClass> Log => _logger;
+
+  public ICounterService MessageService => _msgService;
+
+  #region Suppress CodeMaid Method Sorting
+
+  public virtual Task OnEntering(Context<TStateId> context)
+  {
+    _msgService.Counter1++;
+    _logger.LogInformation("[OnEntering]");
+
+    if (HasExtraLogging)
+      Debug.WriteLine($"[{GetType().Name}] [OnEntering]");
+
+    return Task.CompletedTask;
+  }
+
+  #endregion Suppress CodeMaid Method Sorting
+
+  public virtual Task OnEnter(Context<TStateId> context)
+  {
+    _msgService.Counter1++;
+    _logger.LogInformation("[OnEnter] => OK");
+
+    if (HasExtraLogging)
+      Debug.WriteLine($"[{GetType().Name}] [OnEnter] => OK");
+
+    context.NextState(Result.Success);
+    return Task.CompletedTask;
+  }
+
+  public virtual Task OnExit(Context<TStateId> context)
+  {
+    _msgService.Counter1++;
+    _logger.LogInformation("[OnExit]");
+
+    if (HasExtraLogging)
+      Debug.WriteLine($"[{GetType().Name}] [OnExit]");
+
+    context.NextState(Result.Success);
+    return Task.CompletedTask;
+  }
+}
+
+#pragma warning restore SA1124 // Do not use regions

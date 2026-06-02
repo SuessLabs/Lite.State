@@ -21,6 +21,9 @@
     <PackageTags>statemachine;lite;fsm;suesslabs;xeno-innovations</PackageTags>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageReleaseNotes>
+      New Features in v2.4:
+      * Added custom State Results (Success, Error, Failure, etc.) and ability to override the default Result.Success/.Error./Failure.
+
       New Features in v2.2:
 
       * New: Renamed, Result.Ok -&gt; Result.Success (Breaking Change).

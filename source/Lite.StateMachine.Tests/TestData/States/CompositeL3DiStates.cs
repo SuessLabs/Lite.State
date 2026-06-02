@@ -11,9 +11,11 @@ using Microsoft.Extensions.Logging;
 #pragma warning disable SA1402 // File may only contain a single type
 #pragma warning disable IDE0130 // Namespace does not match folder structure
 
-/// <summaryAdded "CompositeL3DiStates" to namespace to reduce class naming collisions</summary>
 namespace Lite.StateMachine.Tests.TestData.States.CompositeL3DiStates;
 
+/// <summary>
+///   Added "CompositeL3DiStates" to namespace to reduce class naming collisions.
+/// </summary>
 public class CommonDiStateBase<TStateClass, TStateId>(IMessageService msg, ILogger<TStateClass> logger)
   : StateDiBase<TStateClass, TStateId>(msg, logger)
   where TStateId : struct, Enum

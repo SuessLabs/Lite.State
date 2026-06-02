@@ -4,9 +4,9 @@
 using System;
 using System.Threading.Tasks;
 using Lite.StateMachine;
-using Sample.Basics.Models;
+using Sample02.PassingParams.Models;
 
-namespace Sample.Basics.States;
+namespace Sample02.PassingParams.States;
 
 #pragma warning disable SA1649 // File name should match first type name
 #pragma warning disable SA1402 // File may only contain a single type

@@ -20,6 +20,60 @@ The Lite State Machine is designed for vertical scaling. Meaning, it can be used
 |-|-|-|
 | Lite.StateMachine | [![Lite.StateMachine NuGet Badge](https://img.shields.io/nuget/v/Lite.StateMachine)](https://www.nuget.org/packages/Lite.StateMachine/) | [![Lite.StateMachine NuGet Badge](https://img.shields.io/nuget/vpre/Lite.StateMachine)](https://www.nuget.org/packages/Lite.StateMachine/)
 
+## Benchmarks
+
+Not only is [Lite.StateMachine](https://github.com/SuessLabs/Lite.StateMachine) smaller, easier to read, manage, and maintain, _**it faster too**_!
+
+The following table is an output of local [benchmark results](https://github.com/DamianSuess/Lite.StateMachine.Benchmarks) using state-transition operations across multiple states:
+
+| Method | Version | Mean | Allocated |
+|-|-|-|-|
+| **Lite.StateMachine** | v2.3.0 | **10.17 us** | **8.02 KB** |
+| Stateless | v5.20.1 | 10.72 us | 10.62 KB |
+
+_Lite.StateMachine is the fastest and lowest allocation_
+
+
+## Features
+
+_Thread safe and most customizations can be set on-the-fly!_
+
+* AOT Friendly - Ahead-of-Time compilation, _No Reflection, no Linq, etc._
+* Passing parameters between state transitions via `Context`
+* Dependency Injection (DI) friendly
+* Asynchronous states
+* Types of States:
+  * **Basic Linear State** (`BaseState`)
+  * **Composite** States (`CompositeState`)
+    * Hieratical / Nested Sub-states
+    * Similar to Actor/Director model
+  * **Command States** with optional Timeout (`CommandState`)
+    * Uses internal Event Aggregator for sending/receiving messages
+    * Allows users to hook to external messaging services (TCP/IP, RabbitMQ, DBus, etc.)
+* State Transition Triggers:
+  * Transitions are triggered by setting the context's next state result:
+  * On Success: `context.NextState(Result.Ok);`
+  * On Error: `context.NextState(Result.Error);`
+  * On Failure: : `context.NextState(Result.Failure);`
+* State Handlers:
+  * `OnEntering` - Initial entry of the state
+  * `OnEnter` - Resting (idle) place for state.
+  * `OnExit` - (Optional) Thrown during transitioning. Used for housekeeping or exiting activity.
+  * `OnMessage` (Optional)
+    * Must ensure that code has exited `OnMessage` before going to the next state.
+  * `OnTimeout` - (Optional) Thrown when the state is auto-transitioning due to timeout exceeded
+* Transition has knowledge of the `PreviousState`, `CurrentStateId`, and `NextState`
+* Shared **Context**:
+  * `Parameters` - _For passing data between states._
+  * `Errors` - _For passing error information between states._
+  * `CurrentStateId`
+  * `NextStates`
+  * `EventAggregator`
+  * `LastChildResult`, `LastChildStateId` _(for composite states)_
+* Customizable (on-the-fly):
+  * State Timeout (_per state or default for all states_)
+  * Overridable Next States! `OnSuccess`, `OnError`, or `OnFailure`
+
 ## Usage
 
 Create a _state machine_ by defining the states, transitions, and shared context.
@@ -27,6 +81,9 @@ Create a _state machine_ by defining the states, transitions, and shared context
 You can define the state machine using either the fluent design pattern or standard line-by-line. Each state is represented by a enum `StateId` in the following example.
 
 ### Basic State
+
+![](docs/images/nuget-state-machine-icon-isometric.png)  
+The basic state exapmle transitions from `State1 -> State2 -> State3`.
 
 ```cs
 // That's it! Just create the state machine, register states, and run it.
@@ -57,7 +114,7 @@ public class BasicState1() : BaseState
 {
   public async Task OnEnter(Context<BasicStateId> context)
   {
-    await Task.Yield(); // Some async work here...
+    await Task.Yield(); // Your async work here...
     context.NextState(Result.Ok);
   }
 }
@@ -66,8 +123,9 @@ public class BasicState2() : BaseState
 {
   public Task OnEnter(Context<StateId> context)
   {
+    // Notice, we did not async/await this method
     context.NextState(Result.Ok);
-    return Task.CompletedTask; // Notice, we did not async/await this method
+    return Task.CompletedTask;
   }
 }
 
@@ -90,6 +148,8 @@ var uml = machine.ExportUml(includeSubmachines: true);
 ![Sample Composite State Image](https://raw.githubusercontent.com/SuessLabs/Lite.StateMachine/develop/docs/SampleGraphviz-1080.png)
 
 ### Composite States
+
+The following uses the fluent design pattern style, stacking the `.RegisterXXX(...)` methonds ontop of each other with the `RunAsync(...)` method occurring at the end.
 
 ```cs
 using Lite.StateMachine;
@@ -182,31 +242,5 @@ public class Composite_State3() : BaseState
   }
 }
 ```
-
-## Features
-
-* AOT Friendly - _No Reflection, no Linq, etc._
-* Passing parameters between state transitions via `Context`
-* Types of States
-  * **Basic Linear State** (`BaseState`)
-  * **Composite** States (`CompositeState`)
-    * Hieratical / Nested Sub-states
-    * Similar to Actor/Director model
-  * **Command States** with optional Timeout (`CommandState`)
-    * Uses internal Event Aggregator for sending/receiving messages
-    * Allows users to hook to external messaging services (TCP/IP, RabbitMQ, DBus, etc.)
-* State Transition Triggers
-  * Transitions are triggered by setting the context's next state result:
-  * On Success: `context.NextState(Result.Ok);`
-  * On Error: `context.NextState(Result.Error);`
-  * On Failure: : `context.NextState(Result.Failure);`
-* State Handlers
-  * `OnEntering` - Initial entry of the state
-  * `OnEnter` - Resting (idle) place for state.
-  * `OnExit` - (Optional) Thrown during transitioning. Used for housekeeping or exiting activity.
-  * `OnMessage` (Optional)
-    * Must ensure that code has exited `OnMessage` before going to the next state.
-  * `OnTimeout` - (Optional) Thrown when the state is auto-transitioning due to timeout exceeded
-* Transition has knowledge of the `PreviousState` and `NextState`
 
 ## References
