@@ -1,32 +1,25 @@
 // Copyright Xeno Innovations, Inc. 2026
 // See the LICENSE file in the project root for more information.
 
-using Lite.StateMachine;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Sample04.ResultTransitions;
+namespace Lite.StateMachine.Tests.StateTests;
 
-/// <summary>State definitions.</summary>
-public enum StateId
+[TestClass]
+public class NextStateResultTests : TestBase
 {
-  State1,
-  State2,
-  State3,
-}
-
-public class Program
-{
-  private static async Task Main(string[] args)
+  /// <summary>State definitions.</summary>
+  public enum StateId
   {
-    await ResultsStateMachine.RunAsync();
+    State1,
+    State2,
+    State3,
   }
-}
 
-[System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:File may only contain a single type", Justification = "Ignore")]
-public class ResultsStateMachine
-{
-  /// <summary>Example asynchronous run method.</summary>
-  /// <returns>Task.</returns>
-  public static async Task RunAsync()
+  [TestMethod]
+  public async Task NextState_Error_Failure__SuccessTestAsync()
   {
     var machine = new StateMachine<StateId>();
     machine.RegisterState<State1>(StateId.State1, onSuccess: StateId.State1, onError: StateId.State2, onFailure: null, subscriptionTypes: null);
@@ -35,9 +28,18 @@ public class ResultsStateMachine
 
     // Async Example!
     await machine.RunAsync(StateId.State1);
+
+    // Assert Results
+    AssertMachineNotNull(machine);
+
+    // Ensure all states are registered
+    var enums = Enum.GetValues<StateId>().Cast<StateId>();
+    Assert.IsNotNull(enums);
+    Assert.HasCount(enums.Count(), machine.States);
+    Assert.IsTrue(enums.All(k => machine.States.Contains(k)));
   }
 
-  public class State1 : IState<StateId>
+  private class State1 : IState<StateId>
   {
     public Task OnEnter(Context<StateId> context)
     {
@@ -55,17 +57,12 @@ public class ResultsStateMachine
     public Task OnExit(Context<StateId> context) => Task.CompletedTask;
   }
 
-  public class State2 : IState<StateId>
+  private class State2 : IState<StateId>
   {
     public Task OnEnter(Context<StateId> context)
     {
       // Simulate a Failure state transition so we can continue.
       context.NextState(Result.Failure);
-
-      Console.WriteLine($"[State2][OnEnter].OnSuccess goto: '{context.NextStates.OnSuccess}'");
-      Console.WriteLine($"[State2][OnEnter].OnError goto:   '{context.NextStates.OnError}'");
-      Console.WriteLine($"[State2][OnEnter].OnFailure goto: '{context.NextStates.OnFailure}'");
-
       return Task.CompletedTask;
     }
 
@@ -74,17 +71,12 @@ public class ResultsStateMachine
     public Task OnExit(Context<StateId> context) => Task.CompletedTask;
   }
 
-  public class State3 : IState<StateId>
+  private class State3 : IState<StateId>
   {
     public Task OnEnter(Context<StateId> context)
     {
       // Set Failure so we can continue.
       context.NextState(Result.Success);
-
-      Console.WriteLine($"[State3][OnEnter].OnSuccess goto: '{context.NextStates.OnSuccess}'");
-      Console.WriteLine($"[State3][OnEnter].OnError goto:   '{context.NextStates.OnError}'");
-      Console.WriteLine($"[State3][OnEnter].OnFailure goto: '{context.NextStates.OnFailure}'");
-
       return Task.CompletedTask;
     }
 

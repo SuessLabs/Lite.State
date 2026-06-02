@@ -133,7 +133,7 @@ public sealed partial class StateMachine<TStateId> : IStateMachine<TStateId>
     IReadOnlyCollection<Type>? subscriptionTypes = null)
     where TStateClass : class, IState<TStateId>
   {
-    return RegisterState<TStateClass>(stateId, onSuccess, onError: null, onFailure: null, parentStateId: null, isCompositeParent: false, initialChildStateId: null, subscriptionTypes: subscriptionTypes);
+    return RegisterState<TStateClass>(stateId, onSuccess, onError: onError, onFailure: onFailure, parentStateId: null, isCompositeParent: false, initialChildStateId: null, subscriptionTypes: subscriptionTypes);
   }
 
   /// <inheritdoc/>
